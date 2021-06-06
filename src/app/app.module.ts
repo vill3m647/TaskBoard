@@ -14,8 +14,14 @@ import { HeaderComponent } from './header/header.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { JwtInterceptor } from './_helpers';
+import { LoginComponent } from './login';
+import { RegisterComponent } from './register';
+import { AlertComponent } from './_components/';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, TasksComponent],
+  declarations: [AppComponent, HeaderComponent, TasksComponent, LoginComponent, RegisterComponent,
+    AlertComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,9 +33,12 @@ import { AppRoutingModule } from './app-routing.module';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+
+
   ],
-  providers: [],
+  providers: [  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
